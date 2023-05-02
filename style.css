@@ -143,7 +143,7 @@ button:hover {
   height: 100%;
   width: 100%;
   z-index: 1;
-  background-image: url('cortlandt_alley.webp');
+  background-image: url('pizza-background.svg');
   filter: saturate(0.6) brightness(0.7);
   object-fit: cover;
   background-size: cover;
