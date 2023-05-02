@@ -1,0 +1,151 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 15px;
+  line-height: 1.4;
+  font-family: 'Lato', monospace;
+  background-color: #333;
+  color: #040887;
+  margin: 0;
+  padding: 0 20px;
+  text-rendering: geometricprecision;
+  -webkit-font-smoothing: subpixel-antialiased;  
+}
+
+h1 {
+  font-size: 40px;
+  line-height: 0.95;
+  letter-spacing: 0em;
+  margin: 0 0 0.6em;
+  text-transform: uppercase;
+  font-family: 'Righteous';
+}
+
+img {
+  width: 100%;
+  max-width: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+p {
+  margin: 0 0 1rem 0;
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+label {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+
+h4 {
+  font-size: 26px;
+  font-family: 'Righteous';
+  text-transform: uppercase;
+  margin: 0;
+}
+
+select,
+button {
+  width: 100%;
+  background-color: #f1f4fa;
+  color: white;
+  font-family: 'Lato', monospace;
+  font-size: 16px;
+  padding: 11px;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  text-transform: unset;
+  font-weight: bold;
+  color: #020b87;
+  border: 1px solid #e0e3e7;
+  box-shadow: 0px 3px 11px -9px #6d85a6;
+  cursor: pointer;
+  transition: background-color 250ms ease;
+}
+
+button:hover {
+  background-color: #c9ddff;
+}
+
+
+.pane-left,
+.pane-right {
+  position: fixed;
+  z-index: 100;
+  top: 20px;
+  left: 20px;
+  max-width: 350px;
+  background-color: white;
+  border-radius: 10px;
+  padding: 28px 23px;
+  box-shadow: 0px 6px 20px -10px #3f4276;
+}
+
+.pane-right {
+  left: auto;
+  right: 20px;
+  width: 450px;
+  max-width: 50vw;
+}
+
+.pane-right small {
+  opacity: 0.75;
+}
+
+#result {
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
+}
+
+#result iframe {
+  border: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.tri-step {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 13px;
+  background: #f1f4fa;
+  padding: 15px 18px;
+  border-radius: 8px;
+}
+
+.tri-step i {
+  font-size: 40px;
+  line-height: 1;
+  font-style: normal
+}
+
+#background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  background-image: url('cortlandt_alley.webp');
+  filter: saturate(0.6) brightness(0.7);
+  object-fit: cover;
+  background-size: cover;
+  mix-blend-mode: hard-light;
+}

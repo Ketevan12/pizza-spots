@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+	<head>
+		<title>NYC Triathalon</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Lato&family=Righteous&display=swap" rel="stylesheet">
+		<link href="style.css" rel="stylesheet">
+	</head>
+	<body>
+		<div class="pane-left">
+			<header>
+				<h1>NYC Triathalon</h1>
+			</header>
+
+			<p>This project uses information from NYC Open Data to create "triathalon routes" between <a href="https://data.cityofnewyork.us/Recreation/Directory-of-Outdoor-Swimming-Pools/fx7a-24mf" target="_blank">outdoor swimming pools</a> and <a href="https://data.cityofnewyork.us/Environment/Directory-of-Running-Tracks/9ned-hmak" target="_blank">running tracks</a> within New York City.</p>
+			<select id="pool-select">
+				<option>Select a Pool...</option>
+			</select>
+			
+			<br />
+			<br />
+			<label>What kind of triathalon?</label>
+			
+			<div style="display: flex; flex-direction: column; gap: 15px;">
+				<button id="shortest-triathalon">⚡️ Shortest ⚡️</button>
+				<button id="longest-triathalon">🥇 Longest 🥇</button>
+				<button id="random-triathalon">🎲 Random 🎲</button>					
+			</div>
+		</div>
+
+		<div id="result">
+			<!-- Result goes here... -->
+		</div>
+
+		<div id="background"></div>
+
+    <script src="script.js"></script>
+	</body>
+</html>
