@@ -2,6 +2,15 @@
   box-sizing: border-box;
 }
 
+.triangle-up {
+  z-index: 1;
+  width: 0;
+  height: 0;
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
+  border-bottom: 100px solid red;
+}
+
 body {
   font-size: 15px;
   line-height: 1.4;
@@ -87,8 +96,22 @@ button:hover {
   background-color: white;
   border-radius: 10px;
   padding: 28px 23px;
-  box-shadow: 0px 6px 20px -10px #3f4276;
-}
+
+    width: 0;
+    height: 0;
+    border-left: 50px solid transparent;
+    border-right: 50px solid transparent;
+    border-bottom: 100px solid red;
+  }
+
+  .triangle-up {
+    width: 0;
+    height: 0;
+    border-left: 50px solid transparent;
+    border-right: 50px solid transparent;
+    border-bottom: 100px solid red;
+  }
+
 
 .pane-right {
   left: auto;
@@ -142,9 +165,8 @@ button:hover {
   height: 100%;
   width: 100%;
   z-index: 1;
-  background-image: url('pizza-spots.webp');
-  filter: saturate(0.6) brightness(0.7);
+  background-image: url('pizza-spots.svg');
   object-fit: cover;
   background-size: cover;
-  mix-blend-mode: hard-light;
+  mix-blend-mode: normal;
 }

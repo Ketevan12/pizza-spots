@@ -1,14 +1,11 @@
 // Elements
-const $randomTriathalon = document.getElementById('random-triathalon')
-const $shortestTriathalon = document.getElementById('shortest-triathalon')
-const $longestTriathalon = document.getElementById('longest-triathalon')
+const $randomPizzaspot = document.getElementById('random-triathalon')
+const $shortestPzzaspot = document.getElementById('shortest-triathalon')
+const $longestPizzaspot = document.getElementById('longest-triathalon')
 const $result = document.getElementById('result')
 const $poolSelect = document.getElementById('pool-select')
 
-// App State Variables
-let runningTracks = []
-let swimmingPools = []
-let selectedPool = null
+
 
 // Helper Functions
 function calculateDistance(lat1, lon1, lat2, lon2) {
@@ -27,7 +24,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 }
 
 // Fetch the data when the page loads
-fetch('data/DPR_RunningTracks_001.json')
+fetch('https://data.cityofnewyork.us/resource/43nn-pn8j.json')
   .then((response) => response.json())
   .then((json) => {
       runningTracks = json.filter(function(track) {
@@ -165,3 +162,10 @@ function renderResult(pool, track) {
     <iframe src="https://www.google.com/maps/embed?pb=!1m20!1m8!1m3!1d193845.05577005667!2d${track.lon}!3d40.6115964!3m2!1i1024!2i768!4f13.1!4m9!3e1!4m3!3m2!1d${pool.lat}!2d${pool.lon}!4m3!3m2!1d${track.lat}!2d-73.8874!5e0!3m2!1sen!2sus!4v1682621151712!5m2!1sen!2sus" width="800" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
   `
 }
+
+{grade}{location}{
+  CUISINE DESCRIPTION
+  DBA
+  Latitude
+  latitude
+Longtitude}
