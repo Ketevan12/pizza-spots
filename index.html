@@ -5,79 +5,115 @@
     <style>
       #map {
         height: 100vh;
-        width: 100%;
+        width: 90%;
       }
     </style>
   </head>
   <body>
-	<p>
-        0 <input type="range" id="distance" min="0" max="5000" value="2500"> 5000
-      </p>
-<p>
-        0 <input type="range" id="distance" min="0" max="5000" value="2500"> 5000
-      </p>
-
- 
     <div id="map"></div>
-    <script
-      async
-      defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYI52ysbcITcv1hk6Pm5eWUq8L-m4ASsk&callback=initMap"
-    ></script>
+    <p>
+      0 <input type="range" id="distance" min="0" max="5000" value="2500" onchange="updateDistanceLabel()"> 5000
+    </p>
+    <p>
+      <label id="distanceLabel">Distance: 2500 meters</label>
+    </p>
+    <button onclick="filterMarkers()">Filter</button>
     <script>
+
+      let map;
+      let markers = [];
+      let userLocationMarker;
+
       function initMap() {
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(showPosition);
         } else {
           console.log("Geolocation is not supported by this browser.");
         }
-
-        function showPosition(position) {
-          const latitude = position.coords.latitude;
-          const longitude = position.coords.longitude;
-
-          const mapElement = document.getElementById("map");
-          const mapOptions = {
-            center: { lat: latitude, lng: longitude },
-            zoom: 14,
-          };
-          const map = new google.maps.Map(mapElement, mapOptions);
-
-          // Fetch pizza spot data from the NYC Open Data API with a pizza spot filter
-          fetch(
-            "https://data.cityofnewyork.us/resource/43nn-pn8j.json?cuisine_description=Pizza"
-          )
-            .then((response) => response.json())
-            .then((data) => {
-              // Loop through the pizza spot data and create a marker for each spot
-              for (let i = 0; i < data.length; i++) {
-                const spot = data[i];
-                const marker = new google.maps.Marker({
-                  position: {
-                    lat: parseFloat(spot.latitude),
-                    lng: parseFloat(spot.longitude),
-                  },
-                  map: map,
-                  title: spot.dba,
-                });
-
-                // Add an info window for each marker that shows the pizza spot name and address
-                const infowindow = new google.maps.InfoWindow({
-                  content:
-                    "<h3>" +
-                    spot.dba +
-                    "</h3>" +
-                    "<p>" +
-                    spot.address +
-                    "</p>",
-                });
-                marker.addListener("click", function () {
-                  infowindow.open(map, marker);
-                });
-              }
-            });
-        }
       }
+
+      function showPosition(position) {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+
+        const mapElement = document.getElementById("map");
+        const mapOptions = {
+          center: { lat: latitude, lng: longitude },
+          zoom: 14,
+        };
+        map = new google.maps.Map(mapElement, mapOptions);
+
+        // Add marker for user's current location
+        userLocationMarker = new google.maps.Marker({
+          position: {
+            lat: latitude,
+            lng: longitude
+          },
+          map: map,
+          title: "Your Location",
+          icon: {
+            path: google.maps.SymbolPath.CIRCLE,
+            scale: 10,
+            strokeColor: "blue",
+            fillColor: "blue",
+            fillOpacity: 0.5,
+            strokeWeight: 1
+          }
+        });
+
+        // Add circle around user's location
+        const userLocationCircle = new google.maps.Circle({
+          strokeColor: "blue",
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: "blue",
+          fillOpacity: 0.35,
+          map: map,
+          center: { lat: latitude, lng: longitude },
+          radius: 500
+        });
+
+        // Fetch pizza spot data from the NYC Open Data API with a pizza spot filter
+        fetch(
+          "https://data.cityofnewyork.us/resource/43nn-pn8j.json?cuisine_description=Pizza"
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            // Loop through the pizza spot data and create a marker for each spot
+            for (let i = 0; i < data.length; i++) {
+              const spot = data[i];
+              const marker = new google.maps.Marker({
+                position: {
+                  lat: parseFloat(spot.latitude),
+                  lng: parseFloat(spot.longitude),
+                },
+                map: map,
+                title: spot.dba,
+              });
+              markers.push(marker);
+
+              // Add an info window for each marker that shows the pizza spot name and address
+              const infowindow = new google.maps.InfoWindow({
+                content: "<strong>" + spot.dba + "</strong><br>" + spot.address
+              });
+              marker.addListener("click", () => {
+                infowindow.open(map, marker);
+              });
+            }
+          });
+		  
+      }
+	  
+
+     
+
+      function updateDistanceLabel() {
+        var distanceRange = document.getElementById("distance");
+        var distanceLabel = document.getElementById("distanceLabel");
+        distanceLabel.innerHTML = "Distance: " + distanceRange.value + " meters";
+      }
+
+
     </script>
-  </body>
-</html>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYI52ysbcITcv1hk6Pm5eWUq8L-m4ASsk&callback=initMap" async defer></script>
+  </body
