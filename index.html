@@ -1,25 +1,83 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-	<head>
-		<title>NYC Triathalon</title>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <title>Pizza Map</title>
+    <style>
+      #map {
+        height: 100vh;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+	<p>
+        0 <input type="range" id="distance" min="0" max="5000" value="2500"> 5000
+      </p>
+<p>
+        0 <input type="range" id="distance" min="0" max="5000" value="2500"> 5000
+      </p>
 
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Lato&family=Righteous&display=swap" rel="stylesheet">
-		<link href="style.css" rel="stylesheet">
-	</head>
-	<body>
-		<div class="triangle-up">A
-		</div>
-			<div style="display: flex; flex-direction: column; gap: 15px;">
-				<button id="shortest-triathalon"> A </button>
-						
-			</div>
+ 
+    <div id="map"></div>
+    <script
+      async
+      defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYI52ysbcITcv1hk6Pm5eWUq8L-m4ASsk&callback=initMap"
+    ></script>
+    <script>
+      function initMap() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+          console.log("Geolocation is not supported by this browser.");
+        }
 
-		<div id="background"></div>
+        function showPosition(position) {
+          const latitude = position.coords.latitude;
+          const longitude = position.coords.longitude;
 
-    <script src="script.js"></script>
-	</body>
+          const mapElement = document.getElementById("map");
+          const mapOptions = {
+            center: { lat: latitude, lng: longitude },
+            zoom: 14,
+          };
+          const map = new google.maps.Map(mapElement, mapOptions);
+
+          // Fetch pizza spot data from the NYC Open Data API with a pizza spot filter
+          fetch(
+            "https://data.cityofnewyork.us/resource/43nn-pn8j.json?cuisine_description=Pizza"
+          )
+            .then((response) => response.json())
+            .then((data) => {
+              // Loop through the pizza spot data and create a marker for each spot
+              for (let i = 0; i < data.length; i++) {
+                const spot = data[i];
+                const marker = new google.maps.Marker({
+                  position: {
+                    lat: parseFloat(spot.latitude),
+                    lng: parseFloat(spot.longitude),
+                  },
+                  map: map,
+                  title: spot.dba,
+                });
+
+                // Add an info window for each marker that shows the pizza spot name and address
+                const infowindow = new google.maps.InfoWindow({
+                  content:
+                    "<h3>" +
+                    spot.dba +
+                    "</h3>" +
+                    "<p>" +
+                    spot.address +
+                    "</p>",
+                });
+                marker.addListener("click", function () {
+                  infowindow.open(map, marker);
+                });
+              }
+            });
+        }
+      }
+    </script>
+  </body>
 </html>

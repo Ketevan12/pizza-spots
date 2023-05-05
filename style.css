@@ -41,8 +41,13 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 1rem;
 }
 
-p {
-  margin: 0 0 1rem 0;
+p {p {
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  }
 }
 
 p:last-child {
@@ -88,7 +93,7 @@ button:hover {
 
 .pane-left,
 .pane-right {
-  position: fixed;
+  /* position: fixed; */
   z-index: 100;
   top: 20px;
   left: 20px;
@@ -125,7 +130,7 @@ button:hover {
 }
 
 #result {
-  position: fixed;
+  /* position: fixed; */
   z-index: 2;
   top: 0;
   left: 0;
@@ -135,7 +140,7 @@ button:hover {
 
 #result iframe {
   border: 0;
-  position: fixed;
+  /* position: fixed; */
   top: 0;
   left: 0;
   width: 100%;
@@ -159,14 +164,31 @@ button:hover {
 }
 
 #background {
-  position: fixed;
+  /* position: fixed; */
   top: 0;
   left: 0;
   height: 100%;
   width: 100%;
-  z-index: 1;
-  background-image: url('pizza-spots.svg');
+ 
+  
   object-fit: cover;
   background-size: cover;
   mix-blend-mode: normal;
+}
+.border-triangle {
+  border: solid black;
+  border-width: 0 10px 20px 10px;
+  height: 0;
+  width: 100px;
+  position: relative;
+}
+
+.border-triangle:before {
+  content: "";
+  position: absolute;
+  top: -20px;
+  left: 0;
+  border-style: solid;
+  border-width: 0 10px 20px 10px;
+  border-color:  black ;
 }

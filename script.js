@@ -1,4 +1,60 @@
-// // Elements
+function initMap() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else {
+    console.log("Geolocation is not supported by this browser.");
+  }
+}
+
+function showPosition(position) {
+  const latitude = position.coords.latitude;
+  const longitude = position.coords.longitude;
+
+  const mapElement = document.getElementById("map");
+  const mapOptions = {
+    center: { lat: latitude, lng: longitude },
+    zoom: 14,
+  };
+  const map = new google.maps.Map(mapElement, mapOptions);
+
+  // Fetch pizza spot data from the NYC Open Data API with a pizza spot filter
+  fetch(
+    "https://data.cityofnewyork.us/resource/43nn-pn8j.json?cuisine_description=Pizza"
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      // Loop through the pizza spot data and create a marker for each spot
+      for (let i = 0; i < data.length; i++) {
+        const spot = data[i];
+        const marker = new google.maps.Marker({
+          position: {
+            lat: parseFloat(spot.latitude),
+            lng: parseFloat(spot.longitude),
+          },
+          map: map,
+          title: spot.dba,
+        });
+
+        // Add an info window for each marker that shows the pizza spot name and address
+        const infowindow = new google.maps.InfoWindow({
+          content:
+            "<h3>" +
+            spot.dba +
+            "</h3>" +
+            "<p>" +
+            spot.address +
+            "</p>",
+        });
+        marker.addListener("click", function () {
+          infowindow.open(map, marker);
+        });
+      }
+    });
+}
+
+
+
+/ // Elements
 // const $randomPizzaspot = document.getElementById('random-triathalon')
 // const $shortestPzzaspot = document.getElementById('shortest-triathalon')
 // const $longestPizzaspot = document.getElementById('longest-triathalon')
@@ -169,27 +225,58 @@
 //   Latitude
 //   latitude
 // Longtitude}
+//if (navigator.geolocation) {
+  //navigator.geolocation.getCurrentPosition(showPosition);
+//} else {
+ // console.log("Geolocation is not supported by this browser.");}
 
-fetch('https://data.cityofnewyork.us/resource/43nn-pn8j.json')
-.then(response => response.json())
-  .then((data) => { 
 
-let parentElement = document.getElementById('background')
+//function showPosition(position) {
+//  const latitude = position.coords.latitude;
+  //const longitude = position.coords.longitude;
+ // const locationElement = document.getElementById("location");
+  //locationElement.innerHTML = "Latitude: " + latitude + ", Longitude: " + longitude;
+//}
 
-for(let i =0; i < data.length; i++){
 
-  let newDiv = document.createElement ('div')
+//fetch('https://data.cityofnewyork.us/resource/43nn-pn8j.json')
+  //.then(response => response.json())
+  //.then((data) => {
+    //let parentElement = document.getElementById('background')
 
-  newDiv.innerHTML =` 
-    <h4>${data[i].grade}</h4>
-    <p>${data[i].boro}</p>
-    <p>${data[i].street}</p>
-    <p>${data[i].GRADE}</p>
-    <p>${data[i].score}</p>
-    <p>${data[i].cuisine_description}</p>
-    
-    `
+    ///for(let i = 0; i < data.length; i++) {
+      // Only show data with a grade of A and cuisine_description containing "pizza"
+      //if(data[i].grade == "A" && data[i].cuisine_description.includes("Pizza")) {
+        //let newDiv = document.createElement ('div')
+        //newDiv.innerHTML =` 
+          //<h4>${data[i].grade}</h4>
+         // <p>${data[i].boro}</p>
+         // <p>${data[i].street}</p>
+        //  <p>${data[i].zipcode}</p>
+          //<p>${data[i].dba}</p>
+          //<p>${data[i].cuisine_description}</p>
+        `
+       // parentElement.append(newDiv)
+     // }
+   // }
+ // });
 
-  parentElement.append(newDiv)
-}});
-
+ // if (navigator.geolocation) {
+   // navigator.geolocation.getCurrentPosition(showPosition);
+ // } else {
+  //  console.log("Geolocation is not supported by this browser.");
+ // }
+  
+  //function showPosition(position) {
+    //const latitude = position.coords.latitude;
+    //const longitude = position.coords.longitude;
+  
+    //const mapElement = document.getElementById("map");
+   // const mapOptions = {
+    //  center: { lat: latitude, lng: longitude },
+      //zoom: 14,
+   // };
+   // const map = new google.maps.Map(mapElement, mapOptions);
+ // }
+  
+ 
