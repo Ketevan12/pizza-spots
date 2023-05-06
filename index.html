@@ -37,13 +37,47 @@
     padding: 5px 0;
     border-bottom: 1px solid rgb(162, 0, 255); /* Add a bottom border between grades */
   }
+  #splash-page {
+  background-color: yellow;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+#splash-page h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+#splash-page p {
+  font-size: 24px;
+  margin-bottom: 40px;
+}
+
+#splash-page button {
+  font-size: 24px;
+}
+
   </style>
 </head>
 <body>
   <div id="map-wrapper">
     <div id="map"></div>
+</head>
+<body>
+  <div id="splash-page">
+    <h1>Welcome to Pizza Map</h1>
+    <p>Find the best pizza spots near you!</p>
+    <button onclick="initMap()">Explore</button>
   </div>
-  <div id="grades"></div>
+
+  <div id="map-wrapper" style="display: none;">
+    <div id="map"></div>
+  </div>
+
+  <div id="grades" style="display: none;"></div>
 
   <p>
     0 <input type="range" id="distance" min="0" max="5000" value="2500" onchange="onRangeChange()"> 5000
@@ -51,19 +85,34 @@
   </p>
   <button onclick="filterMarkers()">Filter</button>
   <button onclick="showGrade()">Grade</button>
-  
-  <script>
-    let map;
-    let markers = [];
-    let userLocationMarker;
 
-    function initMap() {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-      } else {
-        console.log("Geolocation is not supported by this browser.");
-      }
-    }
+  <script>
+let map;
+let markers = [];
+let userLocationMarker;
+
+function initMap() {
+  clearTimeout(splashPageTimeout);
+  document.getElementById("splash-page").style.display = "none";
+  document.getElementById("map-wrapper").style.display = "block";
+  document.getElementById("grades").style.display = "block";
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else {
+    console.log("Geolocation is not supported by this browser.");
+  }
+}
+
+window.onload = function() {
+  splashPageTimeout = setTimeout(function() {
+    document.getElementById("splash-page").style.display = "none";
+    document.getElementById("map-wrapper").style.display = "block";
+    document.getElementById("grades").style.display = "block";
+  }, 5000);
+};
+
+
 
     function showPosition(position) {
       const latitude = position.coords.latitude;
