@@ -1,100 +1,167 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Pizza Map</title>
-    <style>
-      #map {
-        height: 100vh;
-        width: 90%;
-      }
-    </style>
-  </head>
-  <body>
+<head>
+  <title>Pizza Map</title>
+  <style>
+    #map-wrapper {
+      z-index: 1;
+      padding: 10%;
+      width: 80%;
+      height: 10px;
+    }
+    
+    #map {
+      z-index: 1;
+      height: 500px;
+      width: 100%;
+    }
+    
+    #grades {
+
+	width: 100px;
+	height: 100px;
+    position: absolute;
+    top: 150px;
+    right: 20px;
+    background-color: rgb(255, 0, 0);
+    padding: 10px;
+    border: 1px solid black;
+    max-height: 300px;
+    overflow-y: scroll;
+    font-size: 14px;
+    color: black; /* Set the text color */
+  }
+
+  #grades p {
+    margin: 0;
+    padding: 5px 0;
+    border-bottom: 1px solid rgb(162, 0, 255); /* Add a bottom border between grades */
+  }
+  </style>
+</head>
+<body>
+  <div id="map-wrapper">
     <div id="map"></div>
-    <p>
-      0 <input type="range" id="distance" min="0" max="5000" value="2500" onchange="updateDistanceLabel()"> 5000
-    </p>
-    <p>
-      <label id="distanceLabel">Distance: 2500 meters</label>
-    </p>
-    <button onclick="filterMarkers()">Filter</button>
-    <script>
+  </div>
+  <div id="grades"></div>
 
-      let map;
-      let markers = [];
-      let userLocationMarker;
+  <p>
+    0 <input type="range" id="distance" min="0" max="5000" value="2500" onchange="onRangeChange()"> 5000
+    <label id="distanceLabel">Distance: 2500 meters</label>
+  </p>
+  <button onclick="filterMarkers()">Filter</button>
+  <button onclick="showGrade()">Grade</button>
+  
+  <script>
+    let map;
+    let markers = [];
+    let userLocationMarker;
 
-      function initMap() {
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(showPosition);
-        } else {
-          console.log("Geolocation is not supported by this browser.");
-        }
+    function initMap() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+      } else {
+        console.log("Geolocation is not supported by this browser.");
       }
+    }
 
-      function showPosition(position) {
-        const latitude = position.coords.latitude;
-        const longitude = position.coords.longitude;
+    function showPosition(position) {
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
 
-        const mapElement = document.getElementById("map");
-        const mapOptions = {
-          center: { lat: latitude, lng: longitude },
-          zoom: 14,
-        };
-        map = new google.maps.Map(mapElement, mapOptions);
+      const mapElement = document.getElementById("map");
+      const mapOptions = {
+        center: { lat: latitude, lng: longitude },
+        zoom: 14,
+      };
+      map = new google.maps.Map(mapElement, mapOptions);
 
-        // Add marker for user's current location
-        userLocationMarker = new google.maps.Marker({
-          position: {
-            lat: latitude,
-            lng: longitude
-          },
-          map: map,
-          title: "Your Location",
-          icon: {
-            path: google.maps.SymbolPath.CIRCLE,
-            scale: 10,
-            strokeColor: "blue",
-            fillColor: "blue",
-            fillOpacity: 0.5,
-            strokeWeight: 1
-          }
-        });
-
-        // Add circle around user's location
-        const userLocationCircle = new google.maps.Circle({
+      // Add marker for user's current location
+      userLocationMarker = new google.maps.Marker({
+        position: {
+          lat: latitude,
+          lng: longitude
+        },
+        map: map,
+        title: "Your Location",
+        icon: {
+          path: google.maps.SymbolPath.CIRCLE,
+          scale: 10,
           strokeColor: "blue",
-          strokeOpacity: 0.8,
-          strokeWeight: 2,
           fillColor: "blue",
-          fillOpacity: 0.35,
-          map: map,
-          center: { lat: latitude, lng: longitude },
-          radius: 500
-        });
+          fillOpacity: 0.5,
+          strokeWeight: 1
+        }
+      });
 
-        // Fetch pizza spot data from the NYC Open Data API with a pizza spot filter
-        fetch(
-          "https://data.cityofnewyork.us/resource/43nn-pn8j.json?cuisine_description=Pizza"
-        )
-          .then((response) => response.json())
-          .then((data) => {
-            // Loop through the pizza spot data and create a marker for each spot
-            for (let i = 0; i < data.length; i++) {
-              const spot = data[i];
-              const marker = new google.maps.Marker({
-                position: {
-                  lat: parseFloat(spot.latitude),
-                  lng: parseFloat(spot.longitude),
-                },
-                map: map,
-                title: spot.dba,
+      // Add circle around user's location
+      const userLocationCircle = new google.maps.Circle({
+        strokeColor: "darkblue",
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: "darkblue",
+        fillOpacity: 0.35,
+        map: map,
+        center: { lat: latitude, lng: longitude },
+        radius: 500
+      });
+
+      // Fetch pizza spot data from the NYC Open Data API with a pizza spot filter
+      fetch("https://data.cityofnewyork.us/resource/43nn-pn8j.json?cuisine_description=Pizza")
+        .then((response) => response.json())
+        .then((data) => {
+          // Loop through the pizza spot data and create a marker for each spot
+          for (let i = 0; i < data.length; i++) {
+            const spot = data[i];
+            const marker = new google.maps.Marker({
+              position: {
+                lat: parseFloat(spot.latitude),
+                lng: parseFloat(spot.longitude),
+              },
+              map: map,
+              title: spot.dba
+
               });
+			  if (spot.grade) {
+    const gradeMarker = new google.maps.Circle({
+      strokeColor: "red",
+      strokeOpacity: 0.8,
+      strokeWeight: 2,
+      fillColor: "red",
+      fillOpacity: 0.6,
+      map: map,
+      center: {
+        lat: parseFloat(spot.latitude),
+        lng: parseFloat(spot.longitude),
+      },
+      radius: 20, // Adjust the radius as needed
+    });
+
+    // Add an event listener to show the grade when the grade marker is clicked
+    google.maps.event.addListener(gradeMarker, 'click', function () {
+      const gradesElement = document.getElementById("grades");
+      gradesElement.innerHTML = "<p>" + spot.dba + ": " + spot.grade + "</p>";
+    });
+  }
+
+			  if (i > 1) {
+				marker.setVisible(false)
+			  }
+			  if (marker.getVisible() && marker.grade) {
+      const spot = pizzaSpots[i];
+      gradesText += "<p>" + spot.dba + ": " + spot.grade + "</p>";
+    }
+
+	if (i > 1) {
+                marker.setVisible(false);
+              }
+
               markers.push(marker);
+;
 
               // Add an info window for each marker that shows the pizza spot name and address
               const infowindow = new google.maps.InfoWindow({
-                content: "<strong>" + spot.dba + "</strong><br>" + spot.address
+                content: "<strong>" + spot.dba + "</strong><br>" + spot.grade
               });
               marker.addListener("click", () => {
                 infowindow.open(map, marker);
@@ -107,13 +174,55 @@
 
      
 
-      function updateDistanceLabel() {
+      function onRangeChange() {
         var distanceRange = document.getElementById("distance");
         var distanceLabel = document.getElementById("distanceLabel");
         distanceLabel.innerHTML = "Distance: " + distanceRange.value + " meters";
+
+		// Use this value to adjust the visibility of the markers
       }
+	  function filterMarkers() {
+  const distanceRange = document.getElementById("distance");
+  const distance = distanceRange.value;
+  
+  // Filter markers based on distance from user location
+  for (let i = 0; i < markers.length; i++) {
+    const marker = markers[i];
+    const distanceFromUser = google.maps.geometry.spherical.computeDistanceBetween(marker.getPosition(), userLocationMarker.getPosition());
+    
+    if (distanceFromUser <= distance) {
+      marker.setVisible(true);
+    } else {
+      marker.setVisible(false);
+    }
+  }
+  
 
+}
+function showGrade() {
+  const gradesElement = document.getElementById("grades");
+  let gradesText = "";
 
+  // Loop through the markers and check if the marker is visible and has a grade
+  for (let i = 0; i < markers.length; i++) {
+    const marker = markers[i];
+    if (marker.getVisible() && marker.spot && marker.spot.grade) {
+      const spot = marker.spot;
+      gradesText += "<p>" + spot.dba + ": " + spot.grade + "</p>";
+    }
+  }
+
+  gradesElement.innerHTML = gradesText;
+}
+
+let pizzaSpots = [];
+let business = {
+  legalName: "ABC Corporation",
+  dba: "ABC Inc."
+};
+
+  
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYI52ysbcITcv1hk6Pm5eWUq8L-m4ASsk&callback=initMap" async defer></script>
   </body
+
