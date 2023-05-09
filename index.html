@@ -14,7 +14,8 @@ font-style: normal;
 display: flex;
   justify-content: center;
   align-items: center;
-  height: 50vh;
+  height: 40vh;
+  font-size: 20pt;
 
 
   background-image:
@@ -48,6 +49,7 @@ font-style: normal;
       width: 80%;
       height: 10px;
       border: 10px;
+     
     }
     
 
@@ -62,11 +64,11 @@ z-index: 1;
     right: 1581px;
     background-color: rgb(255, 0, 0);
     padding: 10px;
-    border: 1px solid green;
+    border: 1px solid rgb(0, 0, 0);
     max-height: 300px;
     overflow-y: scroll;
     font-size: 14px;
-    color: black;
+    color: rgb(0, 0, 0);
 
 
   }
@@ -78,7 +80,12 @@ z-index: 1;
     
     
   }
-
+  #word{
+    font-size: 300px;
+  }
+#music{
+  padding: 10px;
+}
 
   #splash-page {
       position: absolute;
@@ -87,9 +94,9 @@ z-index: 1;
       bottom: 0;
       left: 50%;
       transform: translateX(-50%);
-      border-left: 200px solid transparent;
-      border-right: 200px solid transparent;
-      border-bottom: 300px solid rgb(0, 0, 0);
+      border-left: 300px solid transparent;
+      border-right: 300px solid transparent;
+      border-bottom: 400px solid rgb(0, 0, 0);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -97,7 +104,7 @@ z-index: 1;
       font-family: riquet, sans-serif;
 font-weight: 100;
 font-style: normal;
-	  bottom: 40%;
+	  bottom: 30%;
 	  align-items: center;
 
     }
@@ -105,7 +112,8 @@ font-style: normal;
  
 
 #splash-page h1 {
-	align-items: center;
+  top: 140%;
+
 
   font-size: 26px;
 
@@ -119,18 +127,19 @@ font-style: normal;
 
 #splash-page button {
 	
-  font-size: 24px;
-  color: rgb(255, 0, 0);
+  font-size: 40px;
+  color:rgb(255, 0, 0);
   text-emphasis-color: rgb(255, 0, 0);
   font-family: riquet, sans-serif;
-font-weight: 100;
+font-weight: 400;
 font-style: normal;
-border-radius: 100%;
+border-radius: 150%;
 background-color: rgb(255, 0, 0);
 }
 
 #distanceLabel{
-	size: 10in;
+  font-size: 100%;
+	size: 10vh;
 }
 #p{
 	color: blue;
@@ -141,7 +150,7 @@ background-color: rgb(255, 0, 0);
 	text-decoration-line: underline;
 }
 #map {
-     
+     color: red;
       height: 500px;
       width: 100%;
 	  filter:opacity(100%);
@@ -162,16 +171,31 @@ background-color: rgb(255, 0, 0);
     right: 10px;
     background-color: rgb(255, 109, 109);
     padding: 25px;
-    border: 1px solid green;
+    border: 1px solid rgb(0, 0, 0);
     max-height: 300px;
     overflow-y: scroll;
     font-size: 12px;
-    color: rgb(5, 62, 18);
+    color: rgb(0, 103, 3);
     outline: #ccc;
 bottom: 1in;
 position: fixed;
 }
-
+#piz{
+  z-index: 1;
+  text-align: right;
+  color: rgb(0, 0, 0);
+  position:unset;  padding-bottom: 200px;
+}
+ #user-marker-label {
+    color: green;
+  }
+  .green-circle {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: green;
+        position: absolute;
+      }
   </style>
 </head>
 
@@ -182,14 +206,25 @@ position: fixed;
     <h3>B or C :The facility did not meet minimum health standards and you might get sick</h3>
   <h3>N: Not yet graded, try it out</h3>
     <h3>P: Pending grade</h3>
+  
+    <div id="piz"> Explore the wonderful world of NYC Pizza spots</div>
   </div>
 
   <div id="splash-page">
-   
-    <h1>Pizza</1>
-    <button onclick="initMap()">O</label>
-  </div>
+    
+    <h2>Pizza</h2>
 
+      <h3>Pizza</h3>
+
+      <h4>Pizza</h4>
+
+      <h5>Pizza</h5>
+
+      <h6>Pizza</h6>
+    <button onclick="initMap()">O</label>
+     
+  </div>
+ 
   <div id="map-wrapper" style="display: none;">
     <div id="map"></div>
   </div>
@@ -197,13 +232,19 @@ position: fixed;
   <div id="grades" style="display: none;"></div>
 <p>
    <input type="range" id="distance" min="0" max="5000" value="0" onchange="onRangeChange()"> 
-  <label id="distanceLabel"> <h1>Pizza spots in your range</h1></label>
+  <label id="distanceLabel"> <h3>Pizza spots in your range</h3></label>
 </p>
+<div id="duration"></div>
 
+<div class="music"> 
+Click to play some Pizza music 
+<iframe width="20" height="20" src="https://www.youtube.com/embed/Q-wM5Ch8JM8" title="YouTube video player" frameborder="100" border-radius="100" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" ></iframe>
+</div>
   <script>
 let map;
 let markers = [];
 let userLocationMarker;
+
 
 function initMap() {
   clearTimeout(splashPageTimeout);
@@ -256,6 +297,7 @@ window.onload = function() {
           fillOpacity: 0.5,
           strokeWeight: 1
         }
+        
       });
 
       // Fetch pizza spot data from the NYC Open Data API with a pizza spot filter
@@ -298,6 +340,30 @@ window.onload = function() {
       gradesElement.innerHTML = "<p>" + spot.dba + ": " + spot.grade + "</p>";
     });
   }
+// Update the marker click event listener to calculate and display the walking duration
+marker.addListener("click", () => {
+  const destination = marker.getPosition();
+  const directionsService = new google.maps.DirectionsService();
+  const directionsRenderer = new google.maps.DirectionsRenderer();
+  directionsRenderer.setMap(map);
+
+  const request = {
+    origin: userLocationMarker.getPosition(),
+    destination: destination,
+    travelMode: google.maps.TravelMode.WALKING
+  };
+
+  directionsService.route(request, (result, status) => {
+    if (status === google.maps.DirectionsStatus.OK) {
+      const duration = result.routes[0].legs[0].duration.text;
+      const infowindow = new google.maps.InfoWindow({
+        content: "<strong>" + spot.dba + "</strong><br>" + duration
+      });
+      directionsRenderer.setDirections(result);
+      infowindow.open(map, marker);
+    }
+  });
+});
 
 			  if (i > 1) {
 				marker.setVisible(false)
@@ -352,6 +418,7 @@ function filterMarkers() {
       marker.setVisible(true);
     } else {
       marker.setVisible(false);
+      
     }
   }
 }
@@ -442,8 +509,6 @@ let business = {
   legalName: "ABC Corporation",
   dba: "ABC Inc."
 };
-
-  
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYI52ysbcITcv1hk6Pm5eWUq8L-m4ASsk&callback=initMap" async defer></script>
 </body>
