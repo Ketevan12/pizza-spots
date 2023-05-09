@@ -3,6 +3,11 @@
 <head>
   <title>Pizza Map</title>
   <style>
+body {
+  background-color: black;
+  color: white; /* Set text color to white for better visibility */
+}
+
     #map-wrapper {
       z-index: 1;
       padding: 10%;
@@ -10,11 +15,7 @@
       height: 10px;
     }
     
-    #map {
-      z-index: 1;
-      height: 500px;
-      width: 100%;
-    }
+
     
     #grades {
 z-index: 1;
@@ -37,27 +38,44 @@ z-index: 1;
     padding: 5px 0;
     border-bottom: 1px solid rgb(162, 0, 255); /* Add a bottom border between grades */
   }
+
+
   #splash-page {
-  background-color: yellow;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-}
+      position: absolute;
+      width: 0;
+      height: 0;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      border-left: 200px solid transparent;
+      border-right: 200px solid transparent;
+      border-bottom: 300px solid red;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      font-family: cursive;
+      text-transform: uppercase;
+	  bottom: 40%;
+    }
+
+ 
 
 #splash-page h1 {
   font-size: 36px;
-  margin-bottom: 20px;
+
 }
 
 #splash-page p {
   font-size: 24px;
-  margin-bottom: 40px;
+
 }
 
 #splash-page button {
   font-size: 24px;
+  color: yellow;
+  text-emphasis-color: yellow;
 }
 
 #distanceLabel{
@@ -71,6 +89,18 @@ z-index: 1;
 	color: blue;
 	text-decoration-line: underline;
 }
+#map {
+     
+      height: 500px;
+      width: 100%;
+	  filter:opacity(100%);
+	  color-interpolation-filters: sRGB;
+	
+	  filter: contrast(110%);
+	  filter: hue-rotate(13deg);
+	 
+	border-color: black;
+    }
   </style>
 </head>
 <body>
@@ -79,9 +109,9 @@ z-index: 1;
 </head>
 <body>
   <div id="splash-page">
-    <h1>Welcome to Pizza Map</h1>
-    <p>Find the best pizza spots near you!</p>
-    <button onclick="initMap()">Pizza spots in your range</label>
+    <h1>1</h1>
+    <p>Pizza</p>
+    <button onclick="initMap()">O</label>
   </div>
 
   <div id="map-wrapper" style="display: none;">
@@ -186,7 +216,7 @@ window.onload = function() {
       strokeColor: "red",
       strokeOpacity: 0.8,
       strokeWeight: 2,
-      fillColor: "red",
+      fillColor: "yellow",
       fillOpacity: 0.6,
       map: map,
       center: {
