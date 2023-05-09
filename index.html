@@ -167,7 +167,7 @@ background-color: rgb(255, 0, 0);
     z-index: 1;
 	width: 22%;
 	height: 18%;
-    top: 10px;
+    top: 3px;
     right: 10px;
     background-color: rgb(255, 109, 109);
     padding: 25px;
@@ -340,6 +340,7 @@ window.onload = function() {
       gradesElement.innerHTML = "<p>" + spot.dba + ": " + spot.grade + "</p>";
     });
   }
+  
 // Update the marker click event listener to calculate and display the walking duration
 marker.addListener("click", () => {
   const destination = marker.getPosition();
