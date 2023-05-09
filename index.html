@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html>
+	<link rel="stylesheet" href="https://use.typekit.net/qkr1jre.css">
 <head>
   <title>Pizza Map</title>
   <style>
+	
 body {
-  background-color: black;
+  background-color: rgb(255, 0, 0);
   color: white; /* Set text color to white for better visibility */
+  font-family: "condor", sans-serif;
+font-weight: 400;
+font-style: italic;
 }
 
     #map-wrapper {
@@ -49,33 +54,43 @@ z-index: 1;
       transform: translateX(-50%);
       border-left: 200px solid transparent;
       border-right: 200px solid transparent;
-      border-bottom: 300px solid red;
+      border-bottom: 300px solid rgb(0, 0, 0);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      font-size: 36px;
-      font-family: cursive;
-      text-transform: uppercase;
+	  font-family: "condor", sans-serif;
+font-weight: 400;
+font-style: italic;
 	  bottom: 40%;
+	  align-items: center;
     }
 
  
 
 #splash-page h1 {
+	align-items: center;
+
   font-size: 36px;
 
 }
 
 #splash-page p {
+	align-items: center;
   font-size: 24px;
 
 }
 
 #splash-page button {
+	margin-top: 100%;
   font-size: 24px;
   color: yellow;
   text-emphasis-color: yellow;
+  font-family: "condor", sans-serif;
+font-weight: 400;
+font-style: italic;
+border-radius: 100%;
+background-color: yellow;
 }
 
 #distanceLabel{
@@ -101,13 +116,28 @@ z-index: 1;
 	 
 	border-color: black;
     }
+	#info-box {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+  color: rgb(26, 255, 0);
+  padding: 10px;
+  border-radius: 5px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  width: 20%;
+  height:20% ;
+}
+
   </style>
 </head>
-<body>
+
   <div id="map-wrapper">
     <div id="map"></div>
-</head>
-<body>
+	<div id="info-box">A: Is the only passing grade that a facility can get, B or C :The facility did not meet minimum health standards and is required to correct the violations and be re-inspected to an “A” grade, N: Not yet graded, P: Pending grade</div>
+
+
   <div id="splash-page">
     <h1>1</h1>
     <p>Pizza</p>
@@ -291,7 +321,21 @@ function filterMarkers() {
   }
 }
 
+function updateInfoBox() {
+  const infoBox = document.getElementById("info-box");
+  let infoText = "";
 
+  // Loop through the markers and check their grade
+  for (let i = 0; i < markers.length; i++) {
+    const marker = markers[i];
+    if (marker.getVisible() && marker.spot && marker.spot.grade) {
+      const spot = marker.spot;
+      infoText += "<p>" + spot.dba + ": " + spot.grade + "</p>";
+    }
+  }
+
+  infoBox.innerHTML = infoText;
+}
 
 function showPlacesInRange() {
   const distanceRange = document.getElementById("distance");
