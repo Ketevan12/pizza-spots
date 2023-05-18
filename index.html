@@ -37,8 +37,8 @@ font-style: normal;
 
     #map-wrapper {
   
-    
-      width: 100%;
+    margin-top: 10px;
+      width: 400%;
       height: 10px;
       border: 10px;
      
@@ -59,7 +59,7 @@ font-style: normal;
     max-height: 300px;
     overflow-y: scroll;
     font-size: 214px;
-    color:#99E1D9;
+    color:green;
     font-family: "bely-display", sans-serif;
 font-weight: 300;
 font-style: normal;
@@ -119,18 +119,10 @@ font-display: center;
       
       }
 
-#distanceLabel{
-  font-size: 100%;
-	size: 100vh;
-}
 #p{
 	color: blue;
 }
-#distance{
-	width: 290px;
-	color: blue;
-	text-decoration-line: underline;
-}
+
 #map {
   border: 10in;
     color: red;
@@ -145,13 +137,13 @@ font-display: center;
 }
 
 	#info-box {
-	width: 80%;
-	height: 80%;
+	width: 100%;
+	height: 100%;
 align-items: center;
     margin-left: 100px;
     margin-top: 1200px;
     background-color: #99E1D9;
-    padding: 15px;
+    padding: 10px;
     border: 1px solid rgb(0, 0, 0);
     max-height: 300px;
     overflow-y: scroll;
@@ -182,32 +174,52 @@ font-size: 20px;
         background-color: rgb(255, 255, 255);
         position: absolute;
       }
+
+#distanceLabel{
+  margin-bottom: 100px;
+  margin-right: 10px;
+  font-size: 100%;
+	size: 800vh;
+  width: 1000px;
+}
+#distance{
+  margin-bottom: 100px;
+  margin-right: 100px;
+	width: 390px;
+	color: blue;
+	text-decoration-line: underline;
+}
   </style>
 </head>
 <body>
+  
   <div id="info-box">
     <h3>A: Most likely won't make you sick</h3>
     <h3>B or C: The facility did not meet minimum health standards and you might get sick</h3>
     <h3>N: Not yet graded, try it out</h3>
     <h3>P: Pending grade</h3>
   </div>
+
+  
   <div id="range">
     <input type="range" id="distance" min="0" max="5000" value="0" onchange="onRangeChange()"></div>
    <div id="distanceLabel"> <label id="distanceLabel">
       <h3>Pizza spots in your range</h3>
-    </label></div>
+    </label>   </div>
 
   <div id="map-wrapper" style="display: none;">
     <div id="map"></div>
   </div>
+
 
   <div id="grades" style="display: none;"></div>
 
   <div id="duration"></div>
 <div>
   <div class="music">
-    Click to play some Pizza music
+    
     <iframe
+    color="transperent"
       width="20"
       height="20"
       src="https://www.youtube.com/embed/Q-wM5Ch8JM8"
