@@ -1,41 +1,33 @@
 <!DOCTYPE html>
 <html>
-	<link rel="stylesheet" href="https://use.typekit.net/exa1weq.css">
+	<link rel="stylesheet" href="https://use.typekit.net/iwb5eae.css">
 <head>
   <title>Pizza Map</title>
   <style>
 	
 body {
-  background-color:#f58f8f;
-  color:rgb(36, 84, 12); /* Set text color to white for better visibility */
-  font-family: riquet, sans-serif;
+  background-color:#ffe9c8;
+  color:rgb(250, 58, 58); /* Set text color to white for better visibility */
+  font-family: "bely-display", sans-serif;
 font-weight: 300;
 font-style: normal;
-display: flex;
+display:flex;
   justify-content: center;
   align-items: center;
   height: 40vh;
-  font-size: 20pt;
-
-
-  background-image:
-      linear-gradient(45deg, rgb(255, 0, 0) 25%, transparent 25%), 
-      linear-gradient(135deg, #ccc 25%, transparent 25%),
-      linear-gradient(45deg, transparent 75%, rgb(255, 0, 0) 75%),
-      linear-gradient(135deg, transparent 75%, #ccc 75%);
-    background-size:25px 25px; /* Must be a square */
-    background-position:0 0, 12.5px 0, 12.5px -12.5px, 0px 12.5px; 
-
+  font-size: 16pt;
 }
+
 #overlay {
     position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-    background: #000;
+    background: rgb(255, 0, 0);
     opacity: .6;
     filter: alpha(opacity=60);
+
 }
 #h1{ font-family: riquet, sans-serif;
 font-weight: 100;
@@ -44,9 +36,9 @@ font-style: normal;
 }
 
     #map-wrapper {
-      z-index: 1;
-      padding: 10%;
-      width: 80%;
+  
+    
+      width: 100%;
       height: 10px;
       border: 10px;
      
@@ -55,27 +47,31 @@ font-style: normal;
 
     
     #grades {
-      align-content: center;
-z-index: 1;
-	width: 100px;
-	height: 100px;
+      
+	width: 200px;
+	height: 200px;
     position: absolute;
-    top: 25px;
-    right: 1581px;
-    background-color: rgb(255, 0, 0);
+    top: 15px;
+    right: 1481px;
+    background-color:rgb(250, 58, 58);
     padding: 10px;
-    border: 1px solid rgb(0, 0, 0);
+    border: .5px solid rgb(0, 0, 0);
     max-height: 300px;
     overflow-y: scroll;
-    font-size: 14px;
-    color: rgb(0, 0, 0);
-
+    font-size: 214px;
+    color:#99E1D9;
+    font-family: "bely-display", sans-serif;
+font-weight: 300;
+font-style: normal;
+font-display: center;
 
   }
 
-  #grades p {
-    margin: 10;
-    padding: 5px 0;
+  #grades p {z
+    margin: 13;
+    padding: 30px;
+    font-size: 300px;
+
     
     
     
@@ -86,164 +82,155 @@ z-index: 1;
 #music{
   padding: 10px;
 }
+#splash-page {
+  top:10px;
+        height: 100vh;
+        border: 0ch;
+        margin:10px;
+      width:700vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-family: "riquet", sans-serif;
+        font-weight: 100;
+        font-style: normal;
+        background-color:#ffe9c8;
+        color: rgb(250, 58, 58);
+        border: black;
+        
+      }
 
-  #splash-page {
-      position: absolute;
-      width: 0;
-      height: 0;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      border-left: 300px solid transparent;
-      border-right: 300px solid transparent;
-      border-bottom: 400px solid rgb(0, 0, 0);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      font-family: riquet, sans-serif;
-font-weight: 100;
-font-style: normal;
-	  bottom: 30%;
-	  align-items: center;
+      #splash-page h2 {
+        font-size: 126px;
+      }
 
-    }
-
- 
-
-#splash-page h1 {
-  top: 140%;
-
-
-  font-size: 26px;
-
-}
-
-#splash-page p {
-	align-items: center;
-  font-size: 24px;
-
-}
-
-#splash-page button {
-	
-  font-size: 40px;
-  color:rgb(255, 0, 0);
-  text-emphasis-color: rgb(255, 0, 0);
-  font-family: riquet, sans-serif;
-font-weight: 400;
-font-style: normal;
-border-radius: 150%;
-background-color: rgb(255, 0, 0);
-}
+      #splash-page button {
+        font-size: 140px;
+        color:#99E1D9;
+        text-emphasis-color: rgb(0, 0, 0);
+        font-family: "riquet", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+      
+        background-color: rgb(250, 58, 58);
+        text-align: center;
+        width: 499px;
+      
+      }
 
 #distanceLabel{
   font-size: 100%;
-	size: 10vh;
+	size: 100vh;
 }
 #p{
 	color: blue;
 }
 #distance{
-	width: 100%;
+	width: 290px;
 	color: blue;
 	text-decoration-line: underline;
 }
 #map {
-     color: red;
-      height: 500px;
-      width: 100%;
-	  filter:opacity(100%);
+  border: 10in;
+    color: red;
+    height: 500px;
+    width: 100%;
+	  filter:opacity(50%);
 	  color-interpolation-filters: sRGB;
-    filter: brightness(150%);
-	  filter: contrast(10%);
+    filter: brightness(70%);
 	  filter: hue-rotate(125deg);
- 
+	  border-color: rgb(255, 255, 255);
+    border: 10px;
+}
 
-	border-color: black;
-  border: 10px;
-    }
 	#info-box {
-    z-index: 1;
-	width: 22%;
-	height: 18%;
-    top: 3px;
-    right: 10px;
-    background-color: rgb(255, 109, 109);
-    padding: 25px;
+	width: 80%;
+	height: 80%;
+align-items: center;
+    margin-left: 100px;
+    margin-top: 1200px;
+    background-color: #99E1D9;
+    padding: 15px;
     border: 1px solid rgb(0, 0, 0);
     max-height: 300px;
     overflow-y: scroll;
     font-size: 12px;
-    color: rgb(0, 103, 3);
+    color: rgb(250, 58, 58);
     outline: #ccc;
-bottom: 1in;
-position: fixed;
+    z-index: 2;
+    font-family: "bely-display", sans-serif;
+font-weight: 300;
+font-style: normal;
+font-size: 20px;
+
+
 }
 #piz{
-  z-index: 1;
+  
   text-align: right;
-  color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
   position:unset;  padding-bottom: 200px;
 }
  #user-marker-label {
-    color: green;
+    color: rgb(246, 246, 246);
   }
   .green-circle {
         width: 20px;
         height: 20px;
         border-radius: 50%;
-        background-color: green;
+        background-color: rgb(255, 255, 255);
         position: absolute;
       }
   </style>
 </head>
-
-
-  <div id="map-wrapper">
-    <div id="map"></div>
-	<div id="info-box"><h3>A: Most likely won't make you sick</h3>
-    <h3>B or C :The facility did not meet minimum health standards and you might get sick</h3>
-  <h3>N: Not yet graded, try it out</h3>
+<body>
+  <div id="info-box">
+    <h3>A: Most likely won't make you sick</h3>
+    <h3>B or C: The facility did not meet minimum health standards and you might get sick</h3>
+    <h3>N: Not yet graded, try it out</h3>
     <h3>P: Pending grade</h3>
-  
-    <div id="piz"> Explore the wonderful world of NYC Pizza spots</div>
   </div>
+  <div id="range">
+    <input type="range" id="distance" min="0" max="5000" value="0" onchange="onRangeChange()"></div>
+   <div id="distanceLabel"> <label id="distanceLabel">
+      <h3>Pizza spots in your range</h3>
+    </label></div>
 
-  <div id="splash-page">
-    
-    <h2>Pizza</h2>
-
-      <h3>Pizza</h3>
-
-      <h4>Pizza</h4>
-
-      <h5>Pizza</h5>
-
-      <h6>Pizza</h6>
-    <button onclick="initMap()">O</label>
-     
-  </div>
- 
   <div id="map-wrapper" style="display: none;">
     <div id="map"></div>
   </div>
 
   <div id="grades" style="display: none;"></div>
-<p>
-   <input type="range" id="distance" min="0" max="5000" value="0" onchange="onRangeChange()"> 
-  <label id="distanceLabel"> <h3>Pizza spots in your range</h3></label>
-</p>
-<div id="duration"></div>
 
-<div class="music"> 
-Click to play some Pizza music 
-<iframe width="20" height="20" src="https://www.youtube.com/embed/Q-wM5Ch8JM8" title="YouTube video player" frameborder="100" border-radius="100" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" ></iframe>
+  <div id="duration"></div>
+<div>
+  <div class="music">
+    Click to play some Pizza music
+    <iframe
+      width="20"
+      height="20"
+      src="https://www.youtube.com/embed/Q-wM5Ch8JM8"
+      title="YouTube video player"
+      frameborder="100"
+      border-radius="100"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    ></iframe>
+  </div>
+    <div id="splash-page">
+      <h2>Good Pizza?</h2>
+      <button onclick="initMap()">Yes,
+         Please</button>
+   
+  </div>
 </div>
+
   <script>
+    
 let map;
 let markers = [];
 let userLocationMarker;
+let splashPagePressed = false;
 
 
 function initMap() {
@@ -251,6 +238,8 @@ function initMap() {
   document.getElementById("splash-page").style.display = "none";
   document.getElementById("map-wrapper").style.display = "block";
   document.getElementById("grades").style.display = "block";
+  document.getElementById("distanceLabel").style.display = "block";
+  document.getElementById("duration").style.display = "block";
 
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition);
@@ -264,6 +253,8 @@ window.onload = function() {
     document.getElementById("splash-page").style.display = "none";
     document.getElementById("map-wrapper").style.display = "block";
     document.getElementById("grades").style.display = "block";
+    document.getElementById("distanceLabel").style.display = "block";
+    document.getElementById("duration").style.display = "block";
   }, 70000);
 };
 
@@ -319,10 +310,10 @@ window.onload = function() {
               });
 			  if (spot.grade) {
     const gradeMarker = new google.maps.Circle({
-      strokeColor: "blue",
+      strokeColor:"yellow",
       strokeOpacity: 0.8,
       strokeWeight: 2,
-      fillColor:"blue",
+      fillColor:"yellow",
       fillOpacity: 1.6,
       fillBrigthness:2.0,
       map: map,
@@ -337,7 +328,7 @@ window.onload = function() {
     // Add an event listener to show the grade when the grade marker is clicked
     google.maps.event.addListener(gradeMarker, 'click', function () {
       const gradesElement = document.getElementById("grades");
-      gradesElement.innerHTML = "<p>" + spot.dba + ": " + spot.grade + "</p>";
+      gradesElement.innerHTML = spot.grade + "</p>";
     });
   }
   
@@ -496,9 +487,9 @@ function showGrade() {
   // Loop through the markers and check if the marker is visible and has a grade
   for (let i = 0; i < markers.length; i++) {
     const marker = markers[i];
-    if (marker.getVisible() && marker.spot && marker.spot.grade) {
+    if (marker.getVisible() && spot.grade) {
       const spot = marker.spot;
-      gradesText += "<p>" + spot.dba + ": " + spot.grade + "</p>";
+      gradesText += spot.grade + "</p>";
     }
   }
 
@@ -511,5 +502,5 @@ let business = {
   dba: "ABC Inc."
 };
     </script>
+
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYI52ysbcITcv1hk6Pm5eWUq8L-m4ASsk&callback=initMap" async defer></script>
-</body>
